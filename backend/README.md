@@ -1,14 +1,11 @@
-Create virtual env  
-```python -m venv myenv```  
-Activate virtual env  
-```myenv\Scripts\activate```  
-Install Django  
-```pip install django```  
-Create Django Project   
-```django-admin startproject tracking_car .```  
-Run Sever   
-```python manage.py runserver```    
-Install the CORS    
-```pip install django-cors-headers```     
-Install the Rest Framework    
-```pip install djangorestframework```      
+# Project of robot explorer with Raspberry Pi 
+
+## Backed
+This is the backend of the project. It is a REST API that allows to control the robot and to get the data from the sensors.
+
+### Installation
+To install the backend, you need to install the dependencies with the following command:
+```bash
+pip install -r requirements.txt
+```
+
