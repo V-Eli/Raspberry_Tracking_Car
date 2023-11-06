@@ -5,6 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ControlsComponent } from './controls/controls.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
@@ -14,7 +18,10 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

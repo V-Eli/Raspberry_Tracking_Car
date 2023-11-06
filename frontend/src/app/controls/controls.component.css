@@ -14,6 +14,7 @@
     background-color: #f0f0f0;
   }
   
+  
   .control-button, .settings-button {
     padding: 10px 20px;
     margin: 5px;
@@ -35,4 +36,6 @@
   .horizontal-scroller {
     width: 80%;
   }
+
+
   

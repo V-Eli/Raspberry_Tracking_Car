@@ -1,14 +1,18 @@
 <div class="container">
-    <div class="control-panel">
-      <button class="control-button">Arrow Up</button>
-      <button class="control-button">Circle</button>
-      <button class="control-button">Arrow Down</button>
-    </div>
-    <div class="stream-view">
-      <!-- Your stream content here -->
-    </div>
-    <div class="settings-panel">
-      <button class="settings-button">Switch</button>
-      <input type="range" class="horizontal-scroller" />
-    </div>
+  <div class="control-panel">
+    <button mat-icon-button>
+      <mat-icon>arrow_upward</mat-icon>
+    </button>
+    <button class="control-button">Circle</button>
+    <button mat-icon-button>
+      <mat-icon>arrow_downward</mat-icon>
+    </button>
   </div>
+  <div class="stream-view">
+    <!-- Your stream content here -->
+  </div>
+  <div class="settings-panel">
+    <mat-slide-toggle>Toggle me!</mat-slide-toggle>
+    <input type="range" class="horizontal-scroller" />
+  </div>
+</div>
