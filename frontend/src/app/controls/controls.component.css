@@ -37,5 +37,18 @@
     width: 80%;
   }
 
+/* For the joystick */
+  .zone {
+    position: relative;
+    border: 1px solid black;
+    width: 25vw;
+    height: 200px;
+    left: 0;
+  }
 
+  .zone-absolute {
+    position: absolute;
+    width: 25vw;
+    height: 130px;
+  }
   

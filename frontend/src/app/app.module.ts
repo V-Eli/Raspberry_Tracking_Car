@@ -8,6 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxJoystickModule } from 'ngx-joystick';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { MatButtonModule } from '@angular/material/button';
     HttpClientModule,
     MatIconModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    BrowserAnimationsModule,
+    NgxJoystickModule
   ],
   providers: [],
   bootstrap: [AppComponent]
