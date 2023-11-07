@@ -1,10 +1,10 @@
 <div class="container">
   <div class="control-panel">
-    <button mat-icon-button>
+    <button mat-icon-button (click)="sendPostRequest(url1)">
       <mat-icon>arrow_upward</mat-icon>
     </button>
-    <button class="control-button">Circle</button>
-    <button mat-icon-button>
+    <button class="control-button" (click)="sendPostRequest(url1)">Circle</button>
+    <button mat-icon-button (click)="sendPostRequest(url1)">
       <mat-icon>arrow_downward</mat-icon>
     </button>
   </div>
@@ -12,7 +12,7 @@
     <!-- Your stream content here -->
   </div>
   <div class="settings-panel">
-    <mat-slide-toggle>Toggle me!</mat-slide-toggle>
+    <mat-slide-toggle (change)="onToggleChange($event)">Toggle me!</mat-slide-toggle>
     <div class="zone">
       <ngx-joystick #staticJoystic
                       [options]="staticOptions"

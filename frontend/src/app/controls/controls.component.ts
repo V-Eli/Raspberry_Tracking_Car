@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { JoystickEvent, NgxJoystickComponent } from 'ngx-joystick';
 import { JoystickManagerOptions, JoystickOutputData } from 'nipplejs';
 import { webSocket } from 'rxjs/webSocket';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 
 
@@ -12,7 +13,12 @@ import { webSocket } from 'rxjs/webSocket';
   styleUrls: ['./controls.component.css']
 })
 export class ControlsComponent implements OnInit {
+  public url1 = 'https://example.com/endpoint1';
+  public url2 = 'https://example.com/endpoint2';
+  public url3 = 'https://example.com/endpoint1';
+  public url4 = 'https://example.com/endpoint2';
   private socket: WebSocket | undefined;
+  private socket2: WebSocket | undefined;
 
   title = 'ngx-joystick-demo';
   @ViewChild('staticJoystic') staticJoystick!: NgxJoystickComponent;
@@ -48,6 +54,8 @@ export class ControlsComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.socket = undefined;
+    this.socket2 = undefined;
+    
   }
 
   ngOnInit() {
@@ -58,6 +66,7 @@ export class ControlsComponent implements OnInit {
 
     // Connect to a WebSocket server
     this.socket = new WebSocket('wss://example.com/socket');
+    this.socket2 = new WebSocket('wss://example2.com/socket2');
 
     // Listen for messages
     this.socket.addEventListener('message', (event) => {
@@ -113,6 +122,33 @@ export class ControlsComponent implements OnInit {
 
   onMoveDynamic(event: JoystickEvent) {
     this.dynamicOutputData = event.data;
+  }
+
+  onToggleChange(event: MatSlideToggleChange) {
+    if (event.checked) {
+      // Send a POST request when the toggle is turned on
+      this.sendPostRequest('https://example.com/on');
+    } else {
+      // Send a different POST request when the toggle is turned off
+      this.sendPostRequest('https://example.com/off');
+    }
+  }
+
+  sendPostRequest(url: string) {
+    // You can add any request data or headers as needed
+    const requestData = { key: 'value' };
+  
+    this.http.post(url, requestData)
+      .subscribe(
+        (response) => {
+          // Handle the successful response here
+          console.log('POST request was successful', response);
+        },
+        (error) => {
+          // Handle any errors that occur during the request
+          console.error('Error sending POST request', error);
+        }
+      );
   }
 
 }
