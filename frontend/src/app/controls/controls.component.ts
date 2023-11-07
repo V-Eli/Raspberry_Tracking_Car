@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { JoystickEvent, NgxJoystickComponent } from 'ngx-joystick';
 import { JoystickManagerOptions, JoystickOutputData } from 'nipplejs';
+import { webSocket } from 'rxjs/webSocket';
+
 
 
 @Component({
@@ -10,6 +12,7 @@ import { JoystickManagerOptions, JoystickOutputData } from 'nipplejs';
   styleUrls: ['./controls.component.css']
 })
 export class ControlsComponent implements OnInit {
+  private socket: WebSocket | undefined;
 
   title = 'ngx-joystick-demo';
   @ViewChild('staticJoystic') staticJoystick!: NgxJoystickComponent;
@@ -43,7 +46,9 @@ export class ControlsComponent implements OnInit {
 
   albums: any[] = []
 
-  constructor(private http: HttpClient,  private socket: WebSocket) {}
+  constructor(private http: HttpClient) {
+    this.socket = undefined;
+  }
 
   ngOnInit() {
     this.http.get<any[]>('/assets/albums.json').subscribe((albums) => {
