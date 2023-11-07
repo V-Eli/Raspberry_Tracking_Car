@@ -25,7 +25,7 @@ import { NgxJoystickModule } from 'ngx-joystick';
     MatSlideToggleModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    NgxJoystickModule
+    NgxJoystickModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

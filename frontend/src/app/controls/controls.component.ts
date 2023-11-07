@@ -10,6 +10,7 @@ import { JoystickManagerOptions, JoystickOutputData } from 'nipplejs';
   styleUrls: ['./controls.component.css']
 })
 export class ControlsComponent implements OnInit {
+
   title = 'ngx-joystick-demo';
   @ViewChild('staticJoystic') staticJoystick!: NgxJoystickComponent;
   @ViewChild('dynamicJoystick') dynamicJoystick!: NgxJoystickComponent;
@@ -42,13 +43,35 @@ export class ControlsComponent implements OnInit {
 
   albums: any[] = []
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,  private socket: WebSocket) {}
 
   ngOnInit() {
     this.http.get<any[]>('/assets/albums.json').subscribe((albums) => {
       this.albums = albums
       console.log(this.albums)
     })
+
+    // Connect to a WebSocket server
+    this.socket = new WebSocket('wss://example.com/socket');
+
+    // Listen for messages
+    this.socket.addEventListener('message', (event) => {
+      // Handle incoming WebSocket messages
+      console.log('Received a message:', event.data);
+    });
+
+    // Handle WebSocket errors
+    this.socket.addEventListener('error', (event) => {
+      console.error('WebSocket error:', event);
+    });
+    
+    // Handle WebSocket close event
+    this.socket.addEventListener('close', (event) => {
+      console.log('WebSocket connection closed:', event);
+    });
+
+    // Send messages
+    this.socket.send('Hello, WebSocket!');
   }
 
   onStartStatic(event: JoystickEvent) {
