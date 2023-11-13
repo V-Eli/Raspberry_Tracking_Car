@@ -40,7 +40,6 @@
 /* For the joystick */
   .zone {
     position: relative;
-    border: 1px solid black;
     width: 25vw;
     height: 200px;
     left: 0;
