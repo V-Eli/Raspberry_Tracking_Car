@@ -1,53 +1,70 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-    align-items: stretch;
-  }
-  
-  .control-panel, .settings-panel {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-  }
-  
-  
-  .control-button, .settings-button {
-    padding: 10px 20px;
-    margin: 5px;
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .stream-view {
-    flex: 3;
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .horizontal-scroller {
-    width: 80%;
-  }
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  align-items: stretch;
+}
+
+.control-panel,
+.settings-panel {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.control-button,
+.settings-button {
+  padding: 15px 30px; /* Adjust padding for more space */
+  margin: 10px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.icon-display {
+  transform: scale(3);
+}
+
+.stream-view {
+  flex: 5; /* Adjust the flex value as needed */
+  background-color: #333;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  margin: 10px;
+}
+
+.horizontal-scroller {
+  width: 80%;
+}
 
 /* For the joystick */
-  .zone {
-    position: relative;
-    width: 25vw;
-    height: 200px;
-    left: 0;
-  }
+.zone {
+  position: relative;
+  width: 25vw;
+  height: 200px;
+  left: 0;
+}
 
-  .zone-absolute {
-    position: absolute;
-    width: 25vw;
-    height: 130px;
-  }
+.zone-absolute {
+  position: absolute;
+  width: 25vw;
+  height: 130px;
+}
+
+.settings-panel {
+  position: relative; /* Add relative positioning for absolute positioning */
+}
+
+.mat-slide-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px; /* Move toggle to the top right corner */
+}
   

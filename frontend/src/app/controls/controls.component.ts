@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { JoystickEvent, NgxJoystickComponent } from 'ngx-joystick';
 import { JoystickManagerOptions, JoystickOutputData } from 'nipplejs';
-import { webSocket } from 'rxjs/webSocket';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 

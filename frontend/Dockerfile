@@ -1,6 +1,6 @@
 #MULTI-ETAPA
 #BUILD STAGE
-FROM node:16-bullseye-slim AS build-stage
+FROM node:20-bullseye-slim AS build-stage
 
 RUN npm install -g @angular/cli
 
