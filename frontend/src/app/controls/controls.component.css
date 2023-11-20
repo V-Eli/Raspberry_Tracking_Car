@@ -15,14 +15,20 @@
   background-color: #f0f0f0;
 }
 
-.control-button,
-.settings-button {
-  padding: 15px 30px; /* Adjust padding for more space */
+.control-button {
+  padding: 15px 30px;
   margin: 10px;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
+  background-color: #000; /* Set background color to black */
+  color: #fff; /* Set text color to white */
+  border-radius: 100%; /* Make the button a circle */
+  width: 80px; /* Set a fixed width for the circle (adjust as needed) */
+  height: 80px; /* Set a fixed height for the circle (adjust as needed) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  text-align: center; /* Center the text horizontally */
+  text-transform: uppercase; /* Optional: Convert text to uppercase */
 }
 
 .icon-display {
