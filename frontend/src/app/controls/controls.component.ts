@@ -12,9 +12,9 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   styleUrls: ['./controls.component.css']
 })
 export class ControlsComponent implements OnInit {
-  public url1 = 'https://example.com/endpoint1';
-  public url2 = 'https://example.com/endpoint2';
-  public url3 = 'https://example.com/endpoint1';
+  public forward = 'http://127.0.0.1:8000/car_forward';
+  public stop = 'http://127.0.0.1:8000/car_stop';
+  public backward = 'http://127.0.0.1:8000/backward';
   public url4 = 'https://example.com/endpoint2';
   private socket: WebSocket | undefined;
   private socket2: WebSocket | undefined;
