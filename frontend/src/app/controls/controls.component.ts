@@ -49,12 +49,20 @@ export class ControlsComponent implements OnInit {
     socket.send(jsonData);
   }
 
+  public videoSource: string | undefined;
+
   
 
   ngOnInit() {
     // Connect to a WebSocket server
     this.socket = new WebSocket('wss://example.com/socket');
     this.socket2 = new WebSocket('wss://example2.com/socket2');
+
+     // Handle messages received from the video WebSocket
+     this.socket2.addEventListener('message', (event) => {
+      // Assuming the data is a base64 encoded video stream
+      this.videoSource = 'data:video/mp4;base64,' + event.data;
+    });
 
   }
 
