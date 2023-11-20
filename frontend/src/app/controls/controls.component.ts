@@ -21,8 +21,6 @@ export class ControlsComponent implements OnInit {
 
   title = 'ngx-joystick-demo';
   @ViewChild('staticJoystic') staticJoystick!: NgxJoystickComponent;
-  @ViewChild('dynamicJoystick') dynamicJoystick!: NgxJoystickComponent;
-  @ViewChild('semiJoystick') semiJoystick!: NgxJoystickComponent;
 
   staticOptions: JoystickManagerOptions = {
     mode: 'static',
@@ -30,21 +28,7 @@ export class ControlsComponent implements OnInit {
     color: 'blue',
   };
 
-  dynamicOptions: JoystickManagerOptions = {
-    mode: 'dynamic',
-    color: 'red',
-    multitouch: true
-  };
-
-  semiOptions: JoystickManagerOptions = {
-    mode: 'semi',
-    catchDistance: 50,
-    color: 'purple'
-  };
-
   staticOutputData!: JoystickOutputData;
-  semiOutputData!: JoystickOutputData;
-  dynamicOutputData!: JoystickOutputData;
 
   directionStatic!: string;
   interactingStatic!: boolean;
@@ -57,72 +41,53 @@ export class ControlsComponent implements OnInit {
     
   }
 
-  ngOnInit() {
-    this.http.get<any[]>('/assets/albums.json').subscribe((albums) => {
-      this.albums = albums
-      console.log(this.albums)
-    })
+  private sendJoystickData(degree: number, socket: WebSocket) {
+    // Convert the degree to a JSON string
+    const jsonData = JSON.stringify({ degree });
+  
+    // Send the JSON string to the WebSocket server
+    socket.send(jsonData);
+  }
 
+  
+
+  ngOnInit() {
     // Connect to a WebSocket server
     this.socket = new WebSocket('wss://example.com/socket');
     this.socket2 = new WebSocket('wss://example2.com/socket2');
 
-    // Listen for messages
-    this.socket.addEventListener('message', (event) => {
-      // Handle incoming WebSocket messages
-      console.log('Received a message:', event.data);
-    });
-
-    // Handle WebSocket errors
-    this.socket.addEventListener('error', (event) => {
-      console.error('WebSocket error:', event);
-    });
-    
-    // Handle WebSocket close event
-    this.socket.addEventListener('close', (event) => {
-      console.log('WebSocket connection closed:', event);
-    });
-
-    // Send messages
-    this.socket.send('Hello, WebSocket!');
   }
 
-  onStartStatic(event: JoystickEvent) {
-    this.interactingStatic = true;
+  //Post when the buttons are touched
+  sendPostRequest(url: string) {
+    // You can add any request data or headers as needed
+    const requestData = { key: 'value' };
+  
+    this.http.post(url, requestData)
+      .subscribe({
+        next: (response) => {
+          // Handle the successful response here
+          console.log('POST request was successful', response);
+        },
+        error: (error) => {
+          // Handle any errors that occur during the request
+          console.error('Error sending POST request', error);
+        }
+      });
   }
 
-  onEndStatic(event: JoystickEvent) {
-    this.interactingStatic = false;
-  }
-
+  // Fuction that checks for the joystick movement
   onMoveStatic(event: JoystickEvent) {
     this.staticOutputData = event.data;
+
+    // Check if the WebSocket connection is open
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      // Send joystick data to the WebSocket server
+      this.sendJoystickData(this.staticOutputData.angle.degree, this.socket);
+    }
   }
 
-  onPlainUpStatic(event: JoystickEvent) {
-    this.directionStatic = 'UP';
-  }
-
-  onPlainDownStatic(event: JoystickEvent) {
-    this.directionStatic = 'DOWN';
-  }
-
-  onPlainLeftStatic(event: JoystickEvent) {
-    this.directionStatic = 'LEFT';
-  }
-
-  onPlainRightStatic(event: JoystickEvent) {
-    this.directionStatic = 'RIGHT';
-  }
-
-  onMoveSemi(event: JoystickEvent) {
-    this.semiOutputData = event.data;
-  }
-
-  onMoveDynamic(event: JoystickEvent) {
-    this.dynamicOutputData = event.data;
-  }
-
+  // Function to send the state of the toggle with the sendPostRequest
   onToggleChange(event: MatSlideToggleChange) {
     if (event.checked) {
       // Send a POST request when the toggle is turned on
@@ -133,21 +98,5 @@ export class ControlsComponent implements OnInit {
     }
   }
 
-  sendPostRequest(url: string) {
-    // You can add any request data or headers as needed
-    const requestData = { key: 'value' };
-  
-    this.http.post(url, requestData)
-      .subscribe(
-        (response) => {
-          // Handle the successful response here
-          console.log('POST request was successful', response);
-        },
-        (error) => {
-          // Handle any errors that occur during the request
-          console.error('Error sending POST request', error);
-        }
-      );
-  }
 
 }
