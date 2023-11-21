@@ -55,13 +55,12 @@ export class ControlsComponent implements OnInit {
 
   ngOnInit() {
     // Connect to a WebSocket server
-    this.socket = new WebSocket('wss://127.0.0.1:8000/direction');
-    this.socket2 = new WebSocket('wss://example2.com/socket2');
-
-     // Handle messages received from the video WebSocket
-     this.socket2.addEventListener('message', (event) => {
-      // Assuming the data is a base64 encoded video stream
-      this.videoSource = 'data:video/mp4;base64,' + event.data;
+    this.socket = new WebSocket('ws://127.0.0.1:8000/direction');
+    this.socket2 = new WebSocket('ws://127.0.0.1:8000/camera');
+    // Handle messages received from the video WebSocket
+    this.socket2.addEventListener('message', (event) => {
+    // Assuming the data is a base64 encoded video stream
+    this.videoSource = 'data:video/mp4;base64,' + event.data;
     });
 
   }
