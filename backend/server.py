@@ -1,6 +1,7 @@
 from fastapi import FastAPI, WebSocket
 from fastapi.responses import HTMLResponse
 import uvicorn
+import time
 from fastapi.middleware.cors import CORSMiddleware
 import cv2
 # from utils.Rasberry import Car
@@ -57,8 +58,11 @@ async def websocket_endpoint(websocket: WebSocket):
             if not ret:
                 break
             base64_image = cv2.imencode('.jpg', frame)[1].tobytes()
-            websocket.send_bytes(base64_image)
-    except:
+            await websocket.send_bytes(base64_image)
+            print(base64_image)
+            print("End of image")
+            time.sleep(5)
+    except KeyboardInterrupt:
         cam.release()
         await websocket.close()
 
