@@ -4,6 +4,7 @@ import uvicorn
 import time
 from fastapi.middleware.cors import CORSMiddleware
 import cv2
+import base64
 # from utils.Rasberry import Car
 
 # car = Car()
@@ -59,7 +60,8 @@ async def websocket_endpoint(websocket: WebSocket):
                 break
             # resize the frame
             frame = cv2.resize(frame, (100, 100))
-            base64_image = cv2.imencode('.jpg', frame)[1].tobytes()
+            # convert the image to base 64
+            base64_image = base64.b64encode(cv2.imencode('.jpg', frame)[1]).decode()
             await websocket.send_bytes(base64_image)
             print(base64_image)
             print("End of image")
