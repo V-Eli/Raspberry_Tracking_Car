@@ -57,6 +57,8 @@ async def websocket_endpoint(websocket: WebSocket):
             ret, frame = cam.read()
             if not ret:
                 break
+            # resize the frame
+            frame = cv2.resize(frame, (100, 100))
             base64_image = cv2.imencode('.jpg', frame)[1].tobytes()
             await websocket.send_bytes(base64_image)
             print(base64_image)
