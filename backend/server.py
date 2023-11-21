@@ -2,6 +2,7 @@ from fastapi import FastAPI, WebSocket
 from fastapi.responses import HTMLResponse
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
+import cv2
 # from utils.Rasberry import Car
 
 # car = Car()
@@ -37,40 +38,6 @@ async def car_backward():
 async def car_stop():
     return {"message": "Car is stopped"}
 
-# html = """
-# <!DOCTYPE html>
-# <html>
-#     <head>
-#         <title>Chat</title>
-#     </head>
-#     <body>
-#         <h1>WebSocket Chat</h1>
-#         <form action="" onsubmit="sendMessage(event)">
-#             <input type="text" id="messageText" autocomplete="off"/>
-#             <button>Send</button>
-#         </form>
-#         <ul id='messages'>
-#         </ul>
-#         <script>
-#             var ws = new WebSocket("ws://localhost:8000/ws");
-#             ws.onmessage = function(event) {
-#                 var messages = document.getElementById('messages')
-#                 var message = document.createElement('li')
-#                 var content = document.createTextNode(event.data)
-#                 message.appendChild(content)
-#                 messages.appendChild(message)
-#             };
-#             function sendMessage(event) {
-#                 var input = document.getElementById("messageText")
-#                 ws.send(input.value)
-#                 input.value = ''
-#                 event.preventDefault()
-#             }
-#         </script>
-#     </body>
-# </html>
-# """
-
 # websocket
 @app.websocket("/direction")
 async def websocket_endpoint(websocket: WebSocket):
@@ -80,6 +47,20 @@ async def websocket_endpoint(websocket: WebSocket):
         # car.direction(data)
         print(data)
 
+@app.websocket("/camera")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    cam = cv2.VideoCapture(0)
+    try:
+        while True:
+            ret, frame = cam.read()
+            if not ret:
+                break
+            base64_image = cv2.imencode('.jpg', frame)[1].tobytes()
+            websocket.send_bytes(base64_image)
+    except:
+        cam.release()
+        await websocket.close()
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
