@@ -9,7 +9,7 @@
     </button>
   </div>
   <div class="stream-view">
-    <video *ngIf="videoSource" [src]="videoSource" controls></video>
+    <img #imagePlayer width="640" height="480" alt="Image">
   </div>
   <div class="settings-panel">
     <mat-slide-toggle (change)="onToggleChange($event)">Vision Nocturna</mat-slide-toggle>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { JoystickEvent, NgxJoystickComponent } from 'ngx-joystick';
 import { JoystickManagerOptions, JoystickOutputData } from 'nipplejs';
@@ -18,9 +18,11 @@ export class ControlsComponent implements OnInit {
   public url4 = 'https://example.com/endpoint2';
   private socket: WebSocket | undefined;
   private socket2: WebSocket | undefined;
+  videoSource: string | undefined;
 
   title = 'ngx-joystick-demo';
   @ViewChild('staticJoystic') staticJoystick!: NgxJoystickComponent;
+  @ViewChild('imagePlayer') imagePlayer!: ElementRef;
 
   staticOptions: JoystickManagerOptions = {
     mode: 'static',
@@ -38,7 +40,6 @@ export class ControlsComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.socket = undefined;
     this.socket2 = undefined;
-    
   }
 
   private sendJoystickData(degree: number, socket: WebSocket) {
@@ -49,7 +50,6 @@ export class ControlsComponent implements OnInit {
     socket.send(jsonData);
   }
 
-  public videoSource: string | undefined;
 
   
 
@@ -57,12 +57,16 @@ export class ControlsComponent implements OnInit {
     // Connect to a WebSocket server
     this.socket = new WebSocket('ws://127.0.0.1:8000/direction');
     this.socket2 = new WebSocket('ws://127.0.0.1:8000/camera');
-    // Handle messages received from the video WebSocket
     this.socket2.addEventListener('message', (event) => {
-    // Assuming the data is a base64 encoded video stream
-    this.videoSource = 'data:video/mp4;base64,' + event.data;
-    });
+      // Assuming the data is a base64 encoded video stream
+      const base64Data = event.data;
 
+      // Update the video source with the new frame
+      if (this.imagePlayer) {
+        console.log(base64Data);
+        this.imagePlayer.nativeElement.src = 'data:image/png;base64,' + base64Data; // Change the MIME type according to your image format
+      }
+    });
   }
 
   //Post when the buttons are touched
