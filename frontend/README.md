@@ -40,3 +40,15 @@ export class AppModule {}
 ```bash
 ng g c controls
 ```
+
+# Run the project
+
+## Build the image
+```bash
+docker build -f frontend/Dockerfile -t tracking_frontend .
+```
+
+## Run the container
+```bash
+docker run -it --name tracking_frontend -p 4200:4200 tracking_frontend
+```

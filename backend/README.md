@@ -18,3 +18,13 @@ python3 server.py
 ### API
 The API url is: http://localhost:5000/api/v1.0/
 
+## Docker
+Build image
+```bash
+docker build -f backend/Dockerfile -t backend_tracking .
+```
+
+Run image
+```bash
+docker run -it --rm --privileged -p 8000:8000 backend_tracking
+```
