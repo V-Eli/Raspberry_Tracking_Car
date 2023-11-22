@@ -46,8 +46,8 @@ async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     while True:
         data = await websocket.receive_text()
-        # car.direction(data)
-        print(data)
+        # car.direction(data["roundedDegree"])
+        print(f'Websocket received: {data["roundedDegree"], type(data["roundedDegree"])}')
 
 @app.websocket("/camera")
 async def websocket_endpoint(websocket: WebSocket):
@@ -59,7 +59,7 @@ async def websocket_endpoint(websocket: WebSocket):
             if not ret:
                 break
             # resize the frame
-            frame = cv2.resize(frame, (100, 100))
+            frame = cv2.resize(frame, (640, 480))
             # convert the image to base 64
             base64_image = base64.b64encode(cv2.imencode('.jpg', frame)[1]).decode()
             await websocket.send_bytes(base64_image)
