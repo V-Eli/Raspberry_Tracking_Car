@@ -1,3 +1,10 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: url(https://static.vecteezy.com/system/resources/previews/005/271/695/non_2x/casual-dots-and-hearts-wallpaper-design-element-pattern-hand-drawn-texture-with-heart-valentines-day-seamless-vector.jpg) center/cover fixed no-repeat; /* Set your background image here */
+  font-family: Arial, sans-serif; /* Set your preferred font family */
+}
+
 .container {
   display: flex;
   flex-direction: row;
@@ -12,7 +19,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
 }
 
 .control-button {
@@ -37,8 +43,6 @@
 
 .stream-view {
   flex: 5; /* Adjust the flex value as needed */
-  background-color: #333;
-  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;

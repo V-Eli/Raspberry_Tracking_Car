@@ -1,3 +1,4 @@
+<body>
 <div class="container">
   <div class="control-panel">
     <button mat-icon-button (click)="sendPostRequest(forward)" style="margin: 20px 0;">
@@ -12,16 +13,14 @@
     <img #imagePlayer width="640" height="480" alt="Image">
   </div>
   <div class="settings-panel">
-    <mat-slide-toggle (change)="onToggleChange($event)">Vision Nocturna</mat-slide-toggle>
+    <!-- <mat-slide-toggle (change)="onToggleChange($event)">Vision Nocturna</mat-slide-toggle> -->
     <div class="zone">
       <ngx-joystick #staticJoystic
                       [options]="staticOptions"
                       (move)="onMoveStatic($event)"></ngx-joystick>
     </div>
     <div *ngIf="staticOutputData" class="zone-absolute">
-      <div style="float: right;">
-        <div>angle-deg: {{ staticOutputData.angle.degree | number:'3.5-5'}}</div>
-      </div>
     </div>
   </div>
 </div>
+</body>

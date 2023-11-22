@@ -18,6 +18,8 @@ export class ControlsComponent implements OnInit {
   public url4 = 'https://example.com/endpoint2';
   private socket: WebSocket | undefined;
   private socket2: WebSocket | undefined;
+  private degree: number | undefined;
+
   videoSource: string | undefined;
 
   title = 'ngx-joystick-demo';
@@ -27,7 +29,7 @@ export class ControlsComponent implements OnInit {
   staticOptions: JoystickManagerOptions = {
     mode: 'static',
     position: { left: '50%', top: '50%' },
-    color: 'blue',
+    color: 'red',
   };
 
   staticOutputData!: JoystickOutputData;
@@ -40,11 +42,16 @@ export class ControlsComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.socket = undefined;
     this.socket2 = undefined;
+    this.degree = undefined
+    setInterval(() => {
+      this.sendJoystickData(this.degree!, this.socket!);
+    }, 500);
   }
 
   private sendJoystickData(degree: number, socket: WebSocket) {
+    const roundedDegree = Math.round(degree);
     // Convert the degree to a JSON string
-    const jsonData = JSON.stringify({ degree });
+    const jsonData = JSON.stringify({ roundedDegree });
   
     // Send the JSON string to the WebSocket server
     socket.send(jsonData);
