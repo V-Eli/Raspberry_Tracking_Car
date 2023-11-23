@@ -81,6 +81,16 @@ class Car:
             GPIO.output(pin, GPIO.LOW)
             time.sleep(sleep_time)
 
+    def set_servo_angle(self, pin, angle):
+        # Convert angle to pulse width
+        pulse_width_ms = 1.0 + (angle / 90.0)  # Scale angle to pulse width range (1 ms to 2 ms)
+
+        # Set the GPIO pin high for the pulse width duration
+        GPIO.output(pin, GPIO.HIGH)
+        time.sleep(pulse_width_ms / 1000.0)  # Convert pulse width to seconds
+        GPIO.output(pin, GPIO.LOW)
+        time.sleep((20.0 - pulse_width_ms) / 1000.0)  # Rest of the period
+
     def __del__(self) -> None:
         GPIO.cleanup()
 
