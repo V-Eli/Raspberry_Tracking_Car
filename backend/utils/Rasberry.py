@@ -8,14 +8,24 @@ class Car:
         pines = [17, 18]  # Ejemplo de pines GPIO
         pwm_gpio = 12
         frequence = 50
-        GPIO.setup(pwm_gpio, GPIO.OUT)
-        self.pwm = GPIO.PWM(pwm_gpio, frequence)
+        # GPIO.setup(pwm_gpio, GPIO.OUT)
+        # self.pwm = GPIO.PWM(pwm_gpio, frequence)
 
         # Configura los pines como salida
-        for pin in pines:
-            GPIO.setup(pin, GPIO.OUT)
+        GPIO.setup(pines, GPIO.OUT)
 
-        self.pwm.start(self.angle_to_percent(0))
+        # self.pwm.start(self.angle_to_percent(0))
+
+        ################# PWM #################
+
+        # Set the pin number
+        pwm_pin = 18
+
+        # Set duty cycle range (0 to 180)
+        self.duty_cycle_range = 180
+
+        # Setup GPIO pin as an output
+        GPIO.setup(pwm_pin, GPIO.OUT)
 
     def forward(self) -> None:
         GPIO.output(17, GPIO.HIGH)
@@ -34,7 +44,7 @@ class Car:
             direction -= 180
             direction = self.inverse_map(direction)
         
-        self.pwm.ChangeDutyCycle(self.angle_to_percent(int(direction)))
+        # self.pwm.ChangeDutyCycle(self.angle_to_percent(int(direction)))
 
     @staticmethod
     def angle_to_percent (angle) :
@@ -58,11 +68,23 @@ class Car:
         inverse_value = 180 - value
         
         return inverse_value
+    
+    def software_pwm(self, pin, frequency = 1000, duty_cycle: int = 90):
+        period = 1.0 / frequency
+        pulse_width = period * (duty_cycle / self.duty_cycle_range)
+        sleep_time = period - pulse_width
+
+        while True:
+            GPIO.output(pin, GPIO.HIGH)
+            time.sleep(pulse_width)
+
+            GPIO.output(pin, GPIO.LOW)
+            time.sleep(sleep_time)
 
     def __del__(self) -> None:
         GPIO.cleanup()
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # Example usage:
     # input_value = 91
     # result = inverse_map(input_value)
