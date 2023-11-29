@@ -12,9 +12,9 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   styleUrls: ['./controls.component.css']
 })
 export class ControlsComponent implements OnInit {
-  public forward = 'http://127.0.0.1:8000/car_forward';
-  public stop = 'http://127.0.0.1:8000/car_stop';
-  public backward = 'http://127.0.0.1:8000/backward';
+  public forward = 'http://172.31.76.134:80/car_forward';
+  public stop = 'http://172.31.76.134:80/car_stop';
+  public backward = 'http://172.31.76.134:80/backward';
   private socket: WebSocket | undefined;
   private socket2: WebSocket | undefined;
 
@@ -57,7 +57,7 @@ export class ControlsComponent implements OnInit {
   ngOnInit() {
     // Connect to a WebSocket server
     this.socket = new WebSocket('ws://127.0.0.1:8000/direction');
-    this.socket2 = new WebSocket('ws://127.0.0.1:8080/camera');
+    this.socket2 = new WebSocket('ws://localhost:8080/camera');
     this.socket2.addEventListener('message', (event) => {
       // Assuming the data is a base64 encoded video stream
       const base64Data = event.data;

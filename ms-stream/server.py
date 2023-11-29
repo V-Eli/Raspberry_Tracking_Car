@@ -23,7 +23,7 @@ async def root():
 @app.websocket("/camera")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
-    cam = cv2.VideoCapture(1)
+    cam = cv2.VideoCapture(0)
     try:
         while True:
             ret, frame = cam.read()
@@ -39,4 +39,4 @@ async def websocket_endpoint(websocket: WebSocket):
         await websocket.close()
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="127.0.0.1", port=8080)
